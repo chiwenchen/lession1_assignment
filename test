@@ -1,0 +1,10 @@
+def show(x)
+  if x == "0"
+    print "Rock"
+  elsif x == "1"
+    print "Paper"
+  elsif x == "2"
+    print "Scissors"
+end
+
+show("0")
