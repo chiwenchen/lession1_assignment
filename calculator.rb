@@ -16,12 +16,13 @@ end
 loop do
   begin
     puts "Enter the first number"
-    num1 = gets.chomp.to_i
+    num1 = gets.chomp
+    #better use regex here to validate?
   end until num1.class == Fixnum || num1.class == Float
 
   begin 
     puts "Enter the second number"
-    num2 = gets.chomp.to_i
+    num2 = gets.chomp
   end until num2.class == Fixnum || num1.class == Float
 
   begin
@@ -42,6 +43,7 @@ loop do
   end until operator == "+" || operator == "-" || operator == "*" || operator == "/"
 
   again = ""
+  #again.play_again <= this call will occur an error: private method `play_again' called for "":String, (NoMethodError)
   play_again(again)
 
 end
