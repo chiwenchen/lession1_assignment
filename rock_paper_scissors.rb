@@ -49,6 +49,11 @@ while play == "y" || play == "s" do #agree to play
     break
   elsif play == "s"
     puts "your score -> #{playerscore}, computer's score -> #{computerscore}"
+    puts "Continue the game? y) Yes n) Leave!"
+    play = gets.chomp
+    if play = "n"
+      break
+    end
   end
   while play != "y" && play != "n" && play != "s" do
     puts "=> Please re-enter. y) Yes n) No "
