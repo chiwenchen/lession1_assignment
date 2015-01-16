@@ -4,7 +4,7 @@
 #4. output the outcome
 
 def play_again(again) #Recursion
-  puts "do you want play again?"
+  puts "do you want play again? (y/n)"
   again = gets.chomp.downcase
   if again == "n"
     abort("Good-bye")
@@ -16,13 +16,13 @@ end
 loop do
   begin
     puts "Enter the first number"
-    num1 = gets.chomp
+    num1 = gets.chomp.to_i
     #better use regex here to validate?
   end until num1.class == Fixnum || num1.class == Float
 
   begin 
     puts "Enter the second number"
-    num2 = gets.chomp
+    num2 = gets.chomp.to_i
   end until num2.class == Fixnum || num1.class == Float
 
   begin
@@ -36,7 +36,7 @@ loop do
     when "*"
       puts "#{num1} * #{num2} = #{num1*num2}"
     when "/"
-      puts "#{num1} * #{num2} = #{num1.to_f/num2.to_f}"
+      puts "#{num1} / #{num2} = #{num1.to_f/num2.to_f}"
     else 
       puts "Pick a right operator"
     end
