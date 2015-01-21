@@ -24,51 +24,51 @@ puts "   |   |    "
 end
 
 def square_empty(table)
-	table.select{|k,v|v == ' '}.keys #this will return a array which the posistion is empty
+  table.select{|k,v|v == ' '}.keys #this will return a array which the posistion is empty
 end
 
 def player_pick(table)
-	begin 
-		puts "Pick a avialiable square (1 ~ 9)"
-		square = gets.chomp.to_i
-	end until square_empty(table).include?(square) #include can check the vars is or isn't included in an array
-	table[square] = 'X'
-	draw_table(table)
+  begin 
+    puts "Pick a avialiable square (1 ~ 9)"
+    square = gets.chomp.to_i
+  end until square_empty(table).include?(square) #include can check the vars is or isn't included in an array
+  table[square] = 'X'
+  draw_table(table)
 end
 
 def computer_pick(table)
-	if !attempt_block 
-		pick = square_empty(table).sample
-		table[pick] = 'O'
-		draw_table(table)
+  if !attempt_block 
+    pick = square_empty(table).sample
+    table[pick] = 'O'
+    draw_table(table)
   end
 end
 
 def winner_or_tie(t)
-	win = [[1,4,7],[2,5,8],[3,6,9],[1,2,3],[4,5,6],[7,8,9],[1,5,9],[3,5,7]]
-	win.each do |win|
-		return "Player" if (t.select{|k,v|v == 'X'}.keys & win).count == 3
-		return "Computer" if (t.select{|k,v|v == 'O'}.keys & win).count == 3
-	end
-	nil
+  win = [[1,4,7],[2,5,8],[3,6,9],[1,2,3],[4,5,6],[7,8,9],[1,5,9],[3,5,7]]
+  win.each do |win|
+    return "Player" if (t.select{|k,v|v == 'X'}.keys & win).count == 3
+    return "Computer" if (t.select{|k,v|v == 'O'}.keys & win).count == 3
+  end
+  nil
 end
 
 def two_in_a_row(t)
-	win = [[1,4,7],[2,5,8],[3,6,9],[1,2,3],[4,5,6],[7,8,9],[1,5,9],[3,5,7]]
-	win.each do |two|
-		if (t.select{|k,v|v == 'X'}.keys & two).count == 2
-			block = (two - t.select{|k,v| v == 'X'}.keys).pop
-		  t[block] = 'ha'
-		  draw_table(t)
-		  return "block"
-		 else
-		 	false
-		end
-	end
+  win = [[1,4,7],[2,5,8],[3,6,9],[1,2,3],[4,5,6],[7,8,9],[1,5,9],[3,5,7]]
+  win.each do |two|
+    if (t.select{|k,v|v == 'X'}.keys & two).count == 2
+      block = (two - t.select{|k,v| v == 'X'}.keys).pop
+      t[block] = 'ha'
+      draw_table(t)
+      return "block"
+     else
+      false
+    end
+  end
 end
 
 def display_winner(winner)
-	puts "#{winner} is the winner" if winner 
+  puts "#{winner} is the winner" if winner 
 end 
  
 #Here is the Main Function
