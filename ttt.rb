@@ -58,7 +58,7 @@ def two_in_a_row(t)
   win.each do |two|
     if (t.select{|k,v|v == 'X'}.keys & two).count == 2
       block = (two - t.select{|k,v| v == 'X'}.keys).pop
-      t[block] = 'ha'
+      t[block] = 'H'
       draw_table(t)
       return "block"
      else
