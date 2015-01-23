@@ -37,11 +37,10 @@ def player_pick(table)
 end
 
 def computer_pick(table)
-  if !attempt_block 
     pick = square_empty(table).sample
+    #binding.pry
     table[pick] = 'O'
     draw_table(table)
-  end
 end
 
 def winner_or_tie(t)
@@ -55,16 +54,23 @@ end
 
 def two_in_a_row(t)
   win = [[1,4,7],[2,5,8],[3,6,9],[1,2,3],[4,5,6],[7,8,9],[1,5,9],[3,5,7]]
-  win.each do |two|
+
+  win.select! do |check_win| 
+  #this is to sort every line without "O", any line haves "O" is no need to use two_in_a_row method
+    check_win.select! {|a|a if t[a] != "O"}
+    check_win if check_win.count == 3
+  end
+  #binding.pry
+  win.each do |two| 
     if (t.select{|k,v|v == 'X'}.keys & two).count == 2
+      #binding.pry
       block = (two - t.select{|k,v| v == 'X'}.keys).pop
-      t[block] = 'H'
-      draw_table(t)
-      return "block"
-     else
-      false
+      t[block] = 'O'
+      return true
+      draw_table(t)   
     end
   end
+  return false
 end
 
 def display_winner(winner)
@@ -75,8 +81,9 @@ end
 begin
 player_pick(real_table)
 two_in_a_row(real_table)
-attempt_block = two_in_a_row(real_table)
-computer_pick(real_table)
+attempt_block = two_in_a_row(real_table) #if two_in_a_row is executed, this will return true.
+#binding.pry
+computer_pick(real_table) if attempt_block == false
 winner = winner_or_tie(real_table)
 display_winner(winner)
 end until square_empty(real_table).length == 0 || winner 
