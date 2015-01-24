@@ -38,7 +38,7 @@ end
 
 def computer_pick(table)
     pick = square_empty(table).sample
-    #binding.pry
+    ##binding.pry
     table[pick] = 'O'
     draw_table(table)
 end
@@ -57,17 +57,16 @@ def two_in_a_row(t)
 
   win.select! do |check_win| 
   #this is to sort every line without "O", any line haves "O" is no need to use two_in_a_row method
-    check_win.select! {|a|a if t[a] != "O"}
-    check_win if check_win.count == 3
+    check_win.select! {|a|a if t[a] != "O"} #delete the element if the location is "O"
+    check_win if check_win.count == 3 
   end
-  #binding.pry
   win.each do |two| 
+  #this is computer to pick the block to stop player's two in a row.  
     if (t.select{|k,v|v == 'X'}.keys & two).count == 2
-      #binding.pry
       block = (two - t.select{|k,v| v == 'X'}.keys).pop
       t[block] = 'O'
-      return true
-      draw_table(t)   
+      draw_table(t) 
+      return true  
     end
   end
   return false
@@ -80,14 +79,13 @@ end
 #Here is the Main Function
 begin
 player_pick(real_table)
-two_in_a_row(real_table)
 attempt_block = two_in_a_row(real_table) #if two_in_a_row is executed, this will return true.
-#binding.pry
 computer_pick(real_table) if attempt_block == false
 winner = winner_or_tie(real_table)
 display_winner(winner)
 end until square_empty(real_table).length == 0 || winner 
 
+puts "It's a tie!!" if !winner
 puts "Good bye"
 
 
